@@ -25,7 +25,8 @@
 		CD57C78419202A5A0065EC64 /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = CD57C78319202A5A0065EC64 /* PlayingCard.m */; };
 		CD57C787192059700065EC64 /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = CD57C786192059700065EC64 /* Deck.m */; };
 		CD57C78A19205CE30065EC64 /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = CD57C78919205CE30065EC64 /* PlayingCardDeck.m */; };
-		CD57C78C192077180065EC64 /* README in Resources */ = {isa = PBXBuildFile; fileRef = CD57C78B192077180065EC64 /* README */; };
+		CD57C78E1921ECC80065EC64 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = CD57C78D1921ECC80065EC64 /* README.txt */; };
+		CDA259A919245BB20006FA2E /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA259A819245BB20006FA2E /* CardMatchingGame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +67,9 @@
 		CD57C786192059700065EC64 /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deck.m; path = Model/Deck.m; sourceTree = "<group>"; };
 		CD57C78819205CE30065EC64 /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCardDeck.h; path = Model/PlayingCardDeck.h; sourceTree = "<group>"; };
 		CD57C78919205CE30065EC64 /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardDeck.m; path = Model/PlayingCardDeck.m; sourceTree = "<group>"; };
-		CD57C78B192077180065EC64 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		CD57C78D1921ECC80065EC64 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		CDA259A719245BB20006FA2E /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardMatchingGame.h; path = Model/CardMatchingGame.h; sourceTree = "<group>"; };
+		CDA259A819245BB20006FA2E /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardMatchingGame.m; path = Model/CardMatchingGame.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,9 +130,9 @@
 			isa = PBXGroup;
 			children = (
 				CD34DFDA191EA5F4007D87F9 /* Main.storyboard */,
-				CD57C781192027C70065EC64 /* Model */,
 				CD34DFDD191EA5F4007D87F9 /* CardGameViewController.h */,
 				CD34DFDE191EA5F4007D87F9 /* CardGameViewController.m */,
+				CD57C781192027C70065EC64 /* Model */,
 				CD34DFE0191EA5F4007D87F9 /* Images.xcassets */,
 				CD34DFCF191EA5F4007D87F9 /* Supporting Files */,
 			);
@@ -139,13 +142,13 @@
 		CD34DFCF191EA5F4007D87F9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CD57C78D1921ECC80065EC64 /* README.txt */,
 				CD34DFD7191EA5F4007D87F9 /* CardGameAppDelegate.h */,
 				CD34DFD8191EA5F4007D87F9 /* CardGameAppDelegate.m */,
 				CD34DFD0191EA5F4007D87F9 /* Matchismo-Info.plist */,
 				CD34DFD1191EA5F4007D87F9 /* InfoPlist.strings */,
 				CD34DFD4191EA5F4007D87F9 /* main.m */,
 				CD34DFD6191EA5F4007D87F9 /* Matchismo-Prefix.pch */,
-				CD57C78B192077180065EC64 /* README */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -179,6 +182,8 @@
 				CD57C786192059700065EC64 /* Deck.m */,
 				CD57C78819205CE30065EC64 /* PlayingCardDeck.h */,
 				CD57C78919205CE30065EC64 /* PlayingCardDeck.m */,
+				CDA259A719245BB20006FA2E /* CardMatchingGame.h */,
+				CDA259A819245BB20006FA2E /* CardMatchingGame.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -260,9 +265,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD57C78C192077180065EC64 /* README in Resources */,
 				CD34DFE1191EA5F4007D87F9 /* Images.xcassets in Resources */,
 				CD34DFD3191EA5F4007D87F9 /* InfoPlist.strings in Resources */,
+				CD57C78E1921ECC80065EC64 /* README.txt in Resources */,
 				CD34DFDC191EA5F4007D87F9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +291,7 @@
 				CD34DFDF191EA5F4007D87F9 /* CardGameViewController.m in Sources */,
 				CD34DFD5191EA5F4007D87F9 /* main.m in Sources */,
 				CD57C78419202A5A0065EC64 /* PlayingCard.m in Sources */,
+				CDA259A919245BB20006FA2E /* CardMatchingGame.m in Sources */,
 				CD57C78A19205CE30065EC64 /* PlayingCardDeck.m in Sources */,
 				CD57C787192059700065EC64 /* Deck.m in Sources */,
 				CD57C780192026CC0065EC64 /* Card.m in Sources */,
