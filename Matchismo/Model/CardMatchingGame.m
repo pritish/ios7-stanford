@@ -24,11 +24,12 @@ static const int COST_TO_CHOOSE = 1;
     return _cards;
 }
 
-- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck {
+- (instancetype)initWithCardCount:(NSUInteger)playingCardCount usingDeck:(Deck *)deck numberOfCardsToDraw:(NSUInteger)matchThisNumberOfCards {
     self = [super init];
     
     if (self) {
-        for (int i=0; i<count; i++) {
+        self.maxCardsToDraw = matchThisNumberOfCards;
+        for (int i=0; i<playingCardCount; i++) {
             Card *aCard = [deck drawRandomCard];
             if (aCard) {
                 [self.cards addObject:aCard];
@@ -54,24 +55,37 @@ static const int COST_TO_CHOOSE = 1;
             // ischosen + !ismatch -> unchoose card
             card.chosen = NO;
         } else {
+            
             // match: choose card +
+            NSMutableArray *otherChosenCards = [[NSMutableArray alloc] init];
+            
             for (Card *otherCard in self.cards) {
                 if (otherCard.isChosen && !otherCard.isMatched) {
-                    int matchScore = [card match:@[otherCard]];
-                    if (matchScore) {
-                        self.score += matchScore * MATCH_BONUS;
-                        otherCard.matched = YES;
-                        card.matched = YES;
-                    } else {
-                        self.score -= MISMATCH_PENALTY;
-                        otherCard.chosen = NO;
-                    }
-                    break; // choosen 2 cards
+                    [otherChosenCards addObject:otherCard];
                 }
             }
+            
+            if ([otherChosenCards count]+1 >= self.maxCardsToDraw) {
+                // match() only after game size - number of cards chosen - is reached
+                int matchScore = [card match:otherChosenCards];
+                if (matchScore) {
+                    self.score += matchScore * MATCH_BONUS;
+                    for (Card *otherCard in otherChosenCards) {
+                        otherCard.matched = YES;
+                    }
+                    card.matched = YES;
+                } else {
+                    self.score -= MISMATCH_PENALTY;
+                    if ([otherChosenCards count]+1 >= self.maxCardsToDraw) {
+                        for (Card *otherCard in otherChosenCards) {
+                            otherCard.chosen = NO;
+                        }
+                    }
+                }
+            }
+            
             self.score -= COST_TO_CHOOSE;
             card.chosen = YES;
-            
         }
     }
 }

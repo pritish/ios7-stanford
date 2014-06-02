@@ -32,7 +32,7 @@
 - (int)match:(NSArray *)otherCards {
     int score = 0;
     
-    if ([otherCards count] == 1) {
+/*    if ([otherCards count] == 1) {
         id otherCard = [otherCards firstObject];
         if ([otherCard isKindOfClass:[PlayingCard class]]) {
             if (((PlayingCard *)otherCard).rank == self.rank) {
@@ -42,6 +42,18 @@
             }
         }
     }
+ */
+    
+    for (PlayingCard *eachCard in otherCards) {
+        if ([eachCard isKindOfClass:[PlayingCard class]]) {
+            if (((PlayingCard *)eachCard).rank == self.rank) {
+                score += 4;
+            } else if (((PlayingCard *)eachCard).suit == self.suit) {
+                score += 1;
+            }
+        }
+    }
+    
     return score;
 }
 

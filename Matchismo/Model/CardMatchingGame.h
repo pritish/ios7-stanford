@@ -13,11 +13,12 @@
 @interface CardMatchingGame : NSObject
 
 // designated initializer
-- (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
+- (instancetype)initWithCardCount:(NSUInteger)playingCardCount usingDeck:(Deck *)deck numberOfCardsToDraw:(NSUInteger)matchThisNumberOfCards;
 
 - (void)chooseCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;
 
 @property (nonatomic, readonly) NSInteger score;
+@property (nonatomic, readwrite) NSUInteger maxCardsToDraw;
 
 @end

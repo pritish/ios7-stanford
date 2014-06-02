@@ -14,6 +14,9 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *gameSizeSelector;
+@property (weak, nonatomic) IBOutlet UILabel *resultDescription;
+
 @end
 
 @implementation CardGameViewController
@@ -27,16 +30,30 @@
     [self.game chooseCardAtIndex:chosenButtonAtIndex];
     [self updateUI];
 }
+
+- (IBAction)touchGameSizeSelector:(UISegmentedControl *)sender {
+    self.game.maxCardsToDraw = (NSUInteger)[[sender titleForSegmentAtIndex:[sender selectedSegmentIndex]] integerValue];
+}
+
+- (IBAction)touchRestartButton:(UIButton *)sender {
+    // reset the game, update the UI
+    self.game = [self createNCardMatchingGame];
+    self.gameSizeSelector.enabled=true;
+    [self updateUI];
+}
+
 - (Deck *)createPlayingCardDeck {
     return [[PlayingCardDeck alloc] init];
 }
 
-- (CardMatchingGame *)createTwoCardMatchingGame {
-    return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createPlayingCardDeck]];
+- (CardMatchingGame *)createNCardMatchingGame {
+    
+    
+    return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createPlayingCardDeck] numberOfCardsToDraw:(NSUInteger)[[self.gameSizeSelector titleForSegmentAtIndex:[self.gameSizeSelector selectedSegmentIndex]] integerValue]];
 }
 
 - (CardMatchingGame *)game {
-    if (!_game) _game = [self createTwoCardMatchingGame];
+    if (!_game) _game = [self createNCardMatchingGame];
     return _game;
 }
 
@@ -58,6 +75,8 @@
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score %d", self.game.score];
         
+        if (self.game.score )
+        self.resultDescription.text = @"we got news..";
     }
 }
 
