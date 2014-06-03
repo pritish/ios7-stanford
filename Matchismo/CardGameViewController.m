@@ -32,17 +32,14 @@
     return @"🙀";
 }
 
-+ (NSArray *)GameEventTypes {
-    return @[@"unchosen", @"chosen", @"match", @"mismatch"];
-}
-
 - (IBAction)touchCardButton:(UIButton *)sender {
-    int chosenButtonAtIndex = [self.cardButtons indexOfObject:sender];
+    unsigned long chosenButtonAtIndex = [self.cardButtons indexOfObject:sender] ;
     [self.game chooseCardAtIndex:chosenButtonAtIndex];
     Card *card = [self.game cardAtIndex:chosenButtonAtIndex];
     if (card) {
         self.cardsChosen = [self.cardsChosen stringByAppendingString:[self titleForCard:card]];
     }
+    
     [self updateUI];
 }
 
@@ -54,6 +51,7 @@
     // reset the game, update the UI
     self.game = [self createNCardMatchingGame];
     self.gameSizeSelector.enabled=true;
+    self.cardsChosen = @"";
     [self updateUI];
 }
 
@@ -80,35 +78,80 @@
     return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
 }
 
-- (void)updateUI {
+- (void)refreshCardButtonStatus {
     for (UIButton *cardButton in self.cardButtons) {
-        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+        unsigned long cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:cardButtonIndex];
         [cardButton setTitle:[self titleForCard:card] forState:(UIControlStateNormal)];
         [cardButton setBackgroundImage: [self backgroundImageForCard:card]
                               forState:(UIControlStateNormal)];
         cardButton.enabled = !card.isMatched;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score %d", self.game.score];
-        
-        id lastEvent = [self.game.gameHistory lastObject];
-        if ([lastEvent isKindOfClass:[NSString class]]) {
-            //@[@"unchosen", @"chosen", @"match", @"mismatch"]
-            int item = [[CardGameViewController GameEventTypes] indexOfObject:[lastEvent lowercaseString]];
-                 switch (item) {
-                     case 0:
-                         break;
-                         default:
-                         
-                         self.resultDescription.text = self.cardsChosen;
-                         break;
-                         
-                 }
-        }
+    }
+}
 
-        
+- (void)updateCardsChosenWithActual {
+    self.cardsChosen = @"";
+    for (UIButton *cardButton in self.cardButtons) {
+        unsigned long cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+        Card *card = [self.game cardAtIndex:cardButtonIndex];
+        if (!card.isMatched && card.isChosen) {
+            self.cardsChosen = [self.cardsChosen stringByAppendingString:[self titleForCard:card]];
+        }
+    }
+}
+
+- (void)updateStatusInfo {
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score %ld", (long)self.game.score];
+    
+    id lastEventObj = [self.game.gameHistory lastObject];
+    if ([lastEventObj isKindOfClass:[NSString class]]) {
+        //@[@"unchosen", @"chosen", @"match", @"mismatch"]
+        NSString *lastEvent = (NSString *)lastEventObj;
+        NSArray *lastEventParsed = [lastEvent componentsSeparatedByString:@","];
+        unsigned long resultType = [[CardMatchingGame GameEventTypes] indexOfObject:[(NSString *)[lastEventParsed objectAtIndex:0] lowercaseString] ];
+        int resultPoints = [[lastEventParsed objectAtIndex:1] intValue];
+        switch (resultType) {
+            case 0:
+                // unchosen case
+                self.resultDescription.text = [NSString stringWithFormat:@"%@ unchosen", self.cardsChosen];
+                self.cardsChosen = @"";
+                break;
+                
+            case 1:
+                // chosen case
+                self.resultDescription.text = [NSString stringWithFormat:@"%@ chosen", self.cardsChosen];
+                break;
+                
+            case 2:
+                // match case
+                self.resultDescription.text = [NSString stringWithFormat:@"Matched %@ for %d points.", self.cardsChosen, resultPoints];
+                self.cardsChosen = @"";
+                break;
+                
+            case 3:
+                // nomatch case
+                self.resultDescription.text = [NSString stringWithFormat:@"%@ don't match! %d point penalty!", self.cardsChosen, resultPoints];
+                [self updateCardsChosenWithActual];
+
+                break;
+                
+            default:
+                
+                self.resultDescription.text = self.cardsChosen;
+                break;
+        }
+    } else {
+        self.resultDescription.text = self.cardsChosen;
         
     }
 }
+
+- (void)updateUI {
+    [self refreshCardButtonStatus];
+    
+    [self updateStatusInfo];
+}
+
 
 
 @end

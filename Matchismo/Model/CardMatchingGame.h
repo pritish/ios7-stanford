@@ -22,4 +22,6 @@
 @property (nonatomic, readwrite) NSUInteger maxCardsToDraw;
 @property (nonatomic, readonly) NSMutableArray *gameHistory;
 
++ (NSArray *)GameEventTypes;
+
 @end

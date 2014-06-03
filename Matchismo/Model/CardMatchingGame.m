@@ -20,6 +20,10 @@ static const int MISMATCH_PENALTY = 2;
 static const int MATCH_BONUS = 4;
 static const int COST_TO_CHOOSE = 1;
 
++ (NSArray *)GameEventTypes {
+    return @[@"unchosen", @"chosen", @"match", @"mismatch"];
+}
+
 - (NSMutableArray *)cards {
     if (!_cards) _cards = [[NSMutableArray alloc] init];
     return _cards;
@@ -61,7 +65,7 @@ static const int COST_TO_CHOOSE = 1;
             // ischosen + !ismatch -> unchoose card
             card.chosen = NO;
             // record in gameHistory the action and cost; unchosen costs 0
-            [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"Unchosen", 0 ]];
+            [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"unchosen", 0 ]];
         } else {
             
             // match: choose card +
@@ -84,7 +88,7 @@ static const int COST_TO_CHOOSE = 1;
                     }
                     card.matched = YES;
                     // record in gameHistory the action and cost; match gives calculatedScore
-                    [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"Match", calculatedScore ]];
+                    [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"match", calculatedScore ]];
                 } else {
                     self.score -= MISMATCH_PENALTY;
                     if ([otherChosenCards count]+1 >= self.maxCardsToDraw) {
@@ -92,16 +96,18 @@ static const int COST_TO_CHOOSE = 1;
                             otherCard.chosen = NO;
                         }
                         // record in gameHistory the action and cost; mismatch costs MISMATCH_PENALTY
-                        [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"Mismatch", MISMATCH_PENALTY ]];
+                        [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"mismatch", MISMATCH_PENALTY ]];
                     }
                 }
+            } else {
+                // record in gameHistory the action and cost; chosen costs COST_TO_CHOOSE
+                [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"chosen", COST_TO_CHOOSE ]];
             }
             
+            // always charge a cost to choose
             self.score -= COST_TO_CHOOSE;
             card.chosen = YES;
-            // record in gameHistory the action and cost; chosen costs COST_TO_CHOOSE
-            [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"Chosen", COST_TO_CHOOSE ]];
-        }
+            }
     }
 }
 
