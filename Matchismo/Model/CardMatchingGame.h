@@ -20,5 +20,6 @@
 
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic, readwrite) NSUInteger maxCardsToDraw;
+@property (nonatomic, readonly) NSMutableArray *gameHistory;
 
 @end

@@ -16,18 +16,33 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameSizeSelector;
 @property (weak, nonatomic) IBOutlet UILabel *resultDescription;
+@property (strong, nonatomic) NSString *cardsChosen;
 
 @end
 
 @implementation CardGameViewController
 
+@synthesize cardsChosen = _cardsChosen;
+
+- (NSString *)cardsChosen {
+    return _cardsChosen ? _cardsChosen : [[NSString alloc] init];
+}
+
 + (NSString *)GameOverMessage {
     return @"🙀";
+}
+
++ (NSArray *)GameEventTypes {
+    return @[@"unchosen", @"chosen", @"match", @"mismatch"];
 }
 
 - (IBAction)touchCardButton:(UIButton *)sender {
     int chosenButtonAtIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonAtIndex];
+    Card *card = [self.game cardAtIndex:chosenButtonAtIndex];
+    if (card) {
+        self.cardsChosen = [self.cardsChosen stringByAppendingString:[self titleForCard:card]];
+    }
     [self updateUI];
 }
 
@@ -75,8 +90,23 @@
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score %d", self.game.score];
         
-        if (self.game.score )
-        self.resultDescription.text = @"we got news..";
+        id lastEvent = [self.game.gameHistory lastObject];
+        if ([lastEvent isKindOfClass:[NSString class]]) {
+            //@[@"unchosen", @"chosen", @"match", @"mismatch"]
+            int item = [[CardGameViewController GameEventTypes] indexOfObject:[lastEvent lowercaseString]];
+                 switch (item) {
+                     case 0:
+                         break;
+                         default:
+                         
+                         self.resultDescription.text = self.cardsChosen;
+                         break;
+                         
+                 }
+        }
+
+        
+        
     }
 }
 

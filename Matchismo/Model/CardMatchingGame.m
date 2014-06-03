@@ -11,6 +11,7 @@
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards; // of Card
+@property (nonatomic, strong) NSMutableArray *gameHistory;
 @end
 
 @implementation CardMatchingGame
@@ -22,6 +23,11 @@ static const int COST_TO_CHOOSE = 1;
 - (NSMutableArray *)cards {
     if (!_cards) _cards = [[NSMutableArray alloc] init];
     return _cards;
+}
+
+- (NSMutableArray *)gameHistory {
+    if (!_gameHistory) _gameHistory = [[NSMutableArray alloc] init];
+    return _gameHistory;
 }
 
 - (instancetype)initWithCardCount:(NSUInteger)playingCardCount usingDeck:(Deck *)deck numberOfCardsToDraw:(NSUInteger)matchThisNumberOfCards {
@@ -54,6 +60,8 @@ static const int COST_TO_CHOOSE = 1;
         if (card.isChosen){
             // ischosen + !ismatch -> unchoose card
             card.chosen = NO;
+            // record in gameHistory the action and cost; unchosen costs 0
+            [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"Unchosen", 0 ]];
         } else {
             
             // match: choose card +
@@ -69,23 +77,30 @@ static const int COST_TO_CHOOSE = 1;
                 // match() only after game size - number of cards chosen - is reached
                 int matchScore = [card match:otherChosenCards];
                 if (matchScore) {
-                    self.score += matchScore * MATCH_BONUS;
+                    NSInteger calculatedScore = matchScore * MATCH_BONUS;
+                    self.score += calculatedScore;
                     for (Card *otherCard in otherChosenCards) {
                         otherCard.matched = YES;
                     }
                     card.matched = YES;
+                    // record in gameHistory the action and cost; match gives calculatedScore
+                    [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"Match", calculatedScore ]];
                 } else {
                     self.score -= MISMATCH_PENALTY;
                     if ([otherChosenCards count]+1 >= self.maxCardsToDraw) {
                         for (Card *otherCard in otherChosenCards) {
                             otherCard.chosen = NO;
                         }
+                        // record in gameHistory the action and cost; mismatch costs MISMATCH_PENALTY
+                        [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"Mismatch", MISMATCH_PENALTY ]];
                     }
                 }
             }
             
             self.score -= COST_TO_CHOOSE;
             card.chosen = YES;
+            // record in gameHistory the action and cost; chosen costs COST_TO_CHOOSE
+            [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"Chosen", COST_TO_CHOOSE ]];
         }
     }
 }
