@@ -7,12 +7,11 @@
 //
 
 #import "CardGameViewController.h"
-#import "PlayingCardDeck.h"
 #import "CardMatchingGame.h"
 
 @interface CardGameViewController ()
-@property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameSizeSelector;
 @property (weak, nonatomic) IBOutlet UILabel *resultDescription;
@@ -28,6 +27,36 @@
     return _cardsChosen ? _cardsChosen : [[NSString alloc] init];
 }
 
+- (Deck *)createDeck // Abstract
+{
+    return nil;
+}
+
+- (NSUInteger)maxNumberOfCardsAllowedToDraw // Abstract
+{
+    return 0;
+}
+
+- (NSString *)titleForCard:(Card *)card // Abstract
+{
+    return nil;
+}
+
+- (UIImage *)backgroundImageForCard:(Card *)card // Abstract
+{
+    return nil;
+}
+
+- (void)bindUIButtonToCard:(UIButton *)cardButton cardToBind:(Card *)card // Abstract
+{
+    return;
+}
+
+- (CardMatchingGame *)createNCardMatchingGame {
+    
+    return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck] numberOfCardsToDraw:[self maxNumberOfCardsAllowedToDraw]];
+}
+
 + (NSString *)GameOverMessage {
     return @"🙀";
 }
@@ -37,7 +66,7 @@
     [self.game chooseCardAtIndex:chosenButtonAtIndex];
     Card *card = [self.game cardAtIndex:chosenButtonAtIndex];
     if (card) {
-        self.cardsChosen = [self.cardsChosen stringByAppendingString:[self titleForCard:card]];
+        //self.cardsChosen = [self.cardsChosen stringByAppendingString:[self titleForCard:card]];
     }
     
     [self updateUI];
@@ -55,37 +84,19 @@
     [self updateUI];
 }
 
-- (Deck *)createPlayingCardDeck {
-    return [[PlayingCardDeck alloc] init];
-}
 
-- (CardMatchingGame *)createNCardMatchingGame {
-    
-    
-    return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createPlayingCardDeck] numberOfCardsToDraw:(NSUInteger)[[self.gameSizeSelector titleForSegmentAtIndex:[self.gameSizeSelector selectedSegmentIndex]] integerValue]];
-}
 
 - (CardMatchingGame *)game {
     if (!_game) _game = [self createNCardMatchingGame];
     return _game;
 }
 
-- (NSString *)titleForCard:(Card *)card {
-    return card.isChosen ? card.contents : @"";
-}
-
-- (UIImage *)backgroundImageForCard:(Card *)card {
-    return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
-}
 
 - (void)refreshCardButtonStatus {
     for (UIButton *cardButton in self.cardButtons) {
         unsigned long cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:cardButtonIndex];
-        [cardButton setTitle:[self titleForCard:card] forState:(UIControlStateNormal)];
-        [cardButton setBackgroundImage: [self backgroundImageForCard:card]
-                              forState:(UIControlStateNormal)];
-        cardButton.enabled = !card.isMatched;
+        [self bindUIButtonToCard:cardButton cardToBind:card];
     }
 }
 
