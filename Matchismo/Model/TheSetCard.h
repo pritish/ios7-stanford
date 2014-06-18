@@ -12,13 +12,13 @@
 
 @property (strong, nonatomic) NSString *symbol;
 @property (nonatomic) NSUInteger numberOfSymbols;
-@property (strong, nonatomic) NSNumber *shadingStroke;
+@property (strong, nonatomic) NSString *shading;
 @property (strong, nonatomic) NSString *color;
 
 
 + (NSArray *)validSymbols;
 + (NSUInteger)maxNumberOfSymbols;
 + (NSArray *)validColors;
-+ (NSArray *)validShadingStrokes;
++ (NSArray *)validShading;
 
 @end

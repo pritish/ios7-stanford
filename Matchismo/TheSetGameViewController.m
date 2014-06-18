@@ -11,6 +11,7 @@
 #import "TheSetCard.h"
 
 @interface TheSetGameViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *resultDescription;
 
 @end
 
@@ -21,45 +22,150 @@
     return [[TheSetCardDeck alloc] init];
 }
 
-
 - (NSUInteger)maxNumberOfCardsAllowedToDraw
 {
     return 3;
 }
 
-- (NSString *)titleForCard:(Card *)card {
-    return card.isChosen ? card.contents : @"";
+- (NSAttributedString *)titleForCard:(Card *)card {
+    return card.isChosen ? [self getAttributedTitleForCard:card] : nil;
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card {
-    return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
+    return [UIImage imageNamed:card.isChosen ? @"cardback" : @"cardfront"];
+}
+
+- (NSAttributedString *)getAttributedTitleForCard:(Card *)card {
+    if ([card isKindOfClass:[TheSetCard class]]) {
+        TheSetCard *aSetCard = (TheSetCard *)card;
+        NSMutableString *unstyledTitle = [[NSMutableString alloc] init];
+        
+        NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+        //@"▲", @"●", @"■" we could store these in a property if we wanted the viewcontroller to allows playing Set with any three distinct shapes
+        for (int i=0; i<aSetCard.numberOfSymbols; i++) {
+            if ([aSetCard.symbol caseInsensitiveCompare:@"circle"] == NSOrderedSame) {
+                [unstyledTitle appendString:@"●"];
+            } else if ([aSetCard.symbol caseInsensitiveCompare:@"square"] == NSOrderedSame) {
+                [unstyledTitle appendString:@"■"];
+            } else if ([aSetCard.symbol caseInsensitiveCompare:@"triangle"] == NSOrderedSame) {
+                [unstyledTitle appendString:@"▲"];
+            }
+        }
+        
+        if ([aSetCard.color caseInsensitiveCompare:@"green"] == NSOrderedSame) {
+            [attributes setObject:[UIColor greenColor]
+                           forKey:NSForegroundColorAttributeName];
+        } else if ([aSetCard.color caseInsensitiveCompare:@"red"] == NSOrderedSame) {
+            [attributes setObject:[UIColor redColor]
+                           forKey:NSForegroundColorAttributeName];
+        } else if ([aSetCard.color caseInsensitiveCompare:@"purple"] == NSOrderedSame) {
+            [attributes setObject:[UIColor purpleColor]
+                           forKey:NSForegroundColorAttributeName];
+        }
+        
+        if ([aSetCard.shading caseInsensitiveCompare:@"striped"] == NSOrderedSame) {
+            //[attributes setObject:@3 forKey:NSStrokeWidthAttributeName];
+            [attributes setObject:[attributes[NSForegroundColorAttributeName] colorWithAlphaComponent:0.2f] forKey:NSForegroundColorAttributeName];
+            
+        } else if ([aSetCard.shading caseInsensitiveCompare:@"solid"] == NSOrderedSame) {
+            [attributes setObject:@0 forKey:NSStrokeWidthAttributeName];
+        } else if ([aSetCard.shading caseInsensitiveCompare:@"open"] == NSOrderedSame) {
+            [attributes setObject:@1 forKey:NSStrokeWidthAttributeName];
+        }
+        
+        return [[NSAttributedString alloc] initWithString:unstyledTitle attributes:attributes];
+    }
+    else return nil;
 }
 
 - (void)bindUIButtonToCard:(UIButton *)cardButton cardToBind:(Card *)card {
-    if ([card isKindOfClass:[TheSetCard class]]) {
-        TheSetCard *aSetCard = (TheSetCard *)card;
-        NSMutableString *unstyledTitle = [[NSMutableString alloc] initWithString:aSetCard.symbol];
-        NSAttributedString *attributedTitle = nil;
-        NSDictionary *attributes = nil;
-        for (int i=1; i<aSetCard.numberOfSymbols; i++) {
-            [unstyledTitle appendString:aSetCard.symbol];
-        }
-        if ([aSetCard.color caseInsensitiveCompare:@"green"] == NSOrderedSame) {
-            attributes = @{NSForegroundColorAttributeName: [UIColor greenColor], NSStrokeWidthAttributeName: aSetCard.shadingStroke };
-        } else if ([aSetCard.color caseInsensitiveCompare:@"red"] == NSOrderedSame) {
-            attributes = @{NSForegroundColorAttributeName: [UIColor redColor], NSStrokeWidthAttributeName: aSetCard.shadingStroke };
-        } else if ([aSetCard.color caseInsensitiveCompare:@"purple"] == NSOrderedSame) {
-            attributes = @{NSForegroundColorAttributeName: [UIColor purpleColor], NSStrokeWidthAttributeName: aSetCard.shadingStroke };
-        }
-        
-        attributedTitle = [[NSAttributedString alloc] initWithString:unstyledTitle attributes:attributes];
-        
-        [cardButton setAttributedTitle:attributedTitle forState:(UIControlStateNormal)];
+        [cardButton setAttributedTitle:[self getAttributedTitleForCard:card] forState:(UIControlStateNormal)];
         [cardButton setBackgroundImage: [self backgroundImageForCard:card]
                               forState:(UIControlStateNormal)];
         cardButton.enabled = !card.isMatched;
-    }
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateUI];
+}
+
+- (void)updateStatusInfo {
+
+    
+    id lastEventObj = [self.game.gameHistory lastObject];
+    if ([lastEventObj isKindOfClass:[NSString class]]) {
+        //@[@"unchosen", @"chosen", @"match", @"mismatch"]
+        NSString *lastEvent = (NSString *)lastEventObj;
+        NSArray *lastEventParsed = [lastEvent componentsSeparatedByString:@","];
+        unsigned long resultType = [[CardMatchingGame GameEventTypes] indexOfObject:[(NSString *)[lastEventParsed objectAtIndex:0] lowercaseString] ];
+        int resultPoints = [[lastEventParsed objectAtIndex:1] intValue];
+        NSMutableAttributedString *description = [[NSMutableAttributedString alloc] init];
+        
+        switch (resultType) {
+            case 0:
+                // unchosen case
+                for (NSAttributedString *aChosenCard in self.cardsChosen) {
+                    if ([aChosenCard isKindOfClass:[NSAttributedString class]]) {
+                        [description appendAttributedString:aChosenCard];
+                    }
+                }
+                [description appendAttributedString:[[NSAttributedString alloc] initWithString:@" unchosen"]];
+                
+                self.resultDescription.attributedText = description;
+                [self.cardsChosen removeAllObjects];
+                break;
+                
+            case 1:
+                // chosen case
+                for (NSAttributedString *aChosenCard in self.cardsChosen) {
+                    if ([aChosenCard isKindOfClass:[NSAttributedString class]]) {
+                        [description appendAttributedString:aChosenCard];
+                    }
+                }
+                [description appendAttributedString:[[NSAttributedString alloc] initWithString:@" chosen"]];
+                
+                self.resultDescription.attributedText = description;
+                break;
+                
+            case 2:
+                // match case
+                [description appendAttributedString:[[NSAttributedString alloc] initWithString:@"Set: "]];
+                for (NSAttributedString *aChosenCard in self.cardsChosen) {
+                    if ([aChosenCard isKindOfClass:[NSAttributedString class]]) {
+                        [description appendAttributedString:aChosenCard];
+                    }
+                }
+                [description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"confirmed for %d points.", resultPoints]]];
+                
+                self.resultDescription.attributedText = description;
+                [self.cardsChosen removeAllObjects];
+                break;
+                
+            case 3:
+                // nomatch case
+                for (NSAttributedString *aChosenCard in self.cardsChosen) {
+                    if ([aChosenCard isKindOfClass:[NSAttributedString class]]) {
+                        [description appendAttributedString:aChosenCard];
+                    }
+                }
+                [description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" don't match! %d point penalty!", resultPoints]]];
+                
+                self.resultDescription.attributedText = description;
+
+                [self updateCardsChosenWithActual];
+                
+                break;
+                
+            default:
+                
+                self.resultDescription.attributedText = self.cardsChosen[0];
+                break;
+        }
+    } else {
+        self.resultDescription.attributedText = self.cardsChosen[0];
+        
+    }
+}
 
 @end

@@ -15,6 +15,9 @@
 }
 
 @synthesize symbol = _symbol;
+@synthesize shading = _shading;
+@synthesize color = _color;
+@synthesize numberOfSymbols = _numberOfSymbols;
 
 + (NSUInteger)maxNumberOfSymbols {
     return [[self rankStrings] count];
@@ -25,20 +28,21 @@
 }
 
 + (NSArray *)validSymbols {
-    return @[@"▲", @"●", @"■"];
+    // allows playing Set with any three distinct shapes @"▲", @"●", @"■"
+    return @[@"triangle", @"circle", @"square"];
 }
 
-+ (NSArray *)validShadingStrokes {
-    return @[@-100, @1, @3];
++ (NSArray *)validShading {
+    return @[@"striped", @"solid", @"open"];
 }
 
 + (NSArray *)validColors {
     return @[@"red", @"green", @"purple"];
 }
 
-- (void)setShadingStroke:(NSNumber *)shadingStroke {
-    if ([[TheSetCard validShadingStrokes] containsObject:shadingStroke]) {
-        _shadingStroke = shadingStroke;
+- (void)setShadingStroke:(NSString *)shading {
+    if ([[TheSetCard validShading] containsObject:shading]) {
+        _shading = shading;
     }
 }
 
@@ -87,8 +91,8 @@
                 matchOnSymbols = true;
             }
             
-            if (((firstOtherCard.shadingStroke == self.shadingStroke) && (secondOtherCard.shadingStroke == self.shadingStroke)) ||
-                ((firstOtherCard.shadingStroke != self.shadingStroke) && (secondOtherCard.shadingStroke != self.shadingStroke) && (firstOtherCard.shadingStroke != secondOtherCard.shadingStroke))) {
+            if (((firstOtherCard.shading == self.shading) && (secondOtherCard.shading == self.shading)) ||
+                ((firstOtherCard.shading != self.shading) && (secondOtherCard.shading != self.shading) && (firstOtherCard.shading != secondOtherCard.shading))) {
                 matchOnShadings = true;
             }
             

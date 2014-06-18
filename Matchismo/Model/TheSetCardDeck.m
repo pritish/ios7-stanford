@@ -17,12 +17,12 @@
         for (NSString *symbol in [TheSetCard validSymbols]) {
             for (NSUInteger numberOfSymbols=1; numberOfSymbols <= [TheSetCard maxNumberOfSymbols]; numberOfSymbols++) {
                 for (NSString *color in [TheSetCard validColors]){
-                    for (NSNumber *shadingStroke in [TheSetCard validShadingStrokes]) {
+                    for (NSString *shading in [TheSetCard validShading]) {
                         TheSetCard *card = [[TheSetCard alloc] init];
                         card.numberOfSymbols = numberOfSymbols;
                         card.symbol = symbol;
                         card.color = color;
-                        card.shadingStroke = shadingStroke;
+                        card.shading = shading;
                         [self addCard:card];
                     }
                 }

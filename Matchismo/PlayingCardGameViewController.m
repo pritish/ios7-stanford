@@ -10,6 +10,7 @@
 #import "PlayingCardDeck.h"
 
 @interface PlayingCardGameViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *resultDescription;
 
 @end
 
@@ -38,6 +39,76 @@
     [cardButton setBackgroundImage: [self backgroundImageForCard:card]
                           forState:(UIControlStateNormal)];
     cardButton.enabled = !card.isMatched;
+}
+
+- (void)updateStatusInfo {
+    id lastEventObj = [self.game.gameHistory lastObject];
+    if ([lastEventObj isKindOfClass:[NSString class]]) {
+        //@[@"unchosen", @"chosen", @"match", @"mismatch"]
+        NSString *lastEvent = (NSString *)lastEventObj;
+        NSArray *lastEventParsed = [lastEvent componentsSeparatedByString:@","];
+        unsigned long resultType = [[CardMatchingGame GameEventTypes] indexOfObject:[(NSString *)[lastEventParsed objectAtIndex:0] lowercaseString] ];
+        int resultPoints = [[lastEventParsed objectAtIndex:1] intValue];
+        NSMutableString *description = [[NSMutableString alloc] init];
+        switch (resultType) {
+            case 0:
+                // unchosen case
+                for (NSString *aChosenCard in self.cardsChosen) {
+                    if ([aChosenCard isKindOfClass:[NSString class]]) {
+                        [description appendString:aChosenCard];
+                    }
+                }
+                [description appendString:@" unchosen"];
+                self.resultDescription.text = description;
+                [self.cardsChosen removeAllObjects];
+                break;
+                
+            case 1:
+                // chosen case
+                for (NSString *aChosenCard in self.cardsChosen) {
+                    if ([aChosenCard isKindOfClass:[NSString class]]) {
+                        [description appendString:aChosenCard];
+                    }
+                }
+                [description appendString:@" chosen"];
+                self.resultDescription.text = description;
+                break;
+                
+            case 2:
+                // match case
+                [description appendString:@"Matched "];
+                for (NSString *aChosenCard in self.cardsChosen) {
+                    if ([aChosenCard isKindOfClass:[NSString class]]) {
+                        [description appendString:aChosenCard];
+                    }
+                }
+                [description appendString:[NSString stringWithFormat:@" for %d points!", resultPoints]];
+                self.resultDescription.text = description;
+                [self.cardsChosen removeAllObjects];
+                break;
+                
+            case 3:
+                // nomatch case
+                for (NSString *aChosenCard in self.cardsChosen) {
+                    if ([aChosenCard isKindOfClass:[NSString class]]) {
+                        [description appendString:aChosenCard];
+                    }
+                }
+                [description appendString:[NSString stringWithFormat:@" don't match, %d point penalty.", resultPoints]];
+                self.resultDescription.text = description;
+                [self updateCardsChosenWithActual];
+                
+                break;
+                
+            default:
+                
+                self.resultDescription.text = self.cardsChosen[0];
+                break;
+        }
+    } else {
+        self.resultDescription.text = self.cardsChosen[0];
+        
+    }
 }
 
 @end
