@@ -175,19 +175,6 @@
                                     <action selector="touchRestartButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="uBD-6H-dZM"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="UAN-Lq-KED">
-                                <rect key="frame" x="128" y="30" width="64" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
-                                <segments>
-                                    <segment title="2"/>
-                                    <segment title="3"/>
-                                </segments>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="touchGameSizeSelector:" destination="vXZ-lx-hvc" eventType="valueChanged" id="oIK-Tc-sZN"/>
-                                </connections>
-                            </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ez1-vS-mtD">
                                 <rect key="frame" x="20" y="390" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -345,7 +332,6 @@
                     <tabBarItem key="tabBarItem" title="Match" id="iZj-5i-GtV"/>
                     <navigationItem key="navigationItem" id="jqg-rF-3YA"/>
                     <connections>
-                        <outlet property="gameSizeSelector" destination="UAN-Lq-KED" id="L6F-v1-57K"/>
                         <outlet property="resultDescription" destination="ez1-vS-mtD" id="b7h-Wq-7XT"/>
                         <outlet property="scoreLabel" destination="4uL-qO-FyP" id="5IR-IF-ViG"/>
                         <outletCollection property="cardButtons" destination="xGC-CZ-i6S" id="2FJ-BB-NCX"/>
@@ -378,7 +364,7 @@
             </objects>
             <point key="canvasLocation" x="1154" y="229"/>
         </scene>
-        <!--The Set Game View Controller - Set-->
+        <!--The Set Game View Controller - Set Game-->
         <scene sceneID="MEn-5d-7bE">
             <objects>
                 <viewController id="JUF-hG-gbf" customClass="TheSetGameViewController" sceneMemberID="viewController">
@@ -391,7 +377,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mjJ-zh-Lac">
-                                <rect key="frame" x="24" y="91" width="60" height="40"/>
+                                <rect key="frame" x="15" y="162" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -399,7 +385,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QrX-e8-IrA">
-                                <rect key="frame" x="167" y="91" width="60" height="40"/>
+                                <rect key="frame" x="163" y="162" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -407,7 +393,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZG0-FX-4BK">
-                                <rect key="frame" x="93" y="91" width="60" height="40"/>
+                                <rect key="frame" x="88" y="162" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -415,7 +401,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fLl-Ms-UdK">
-                                <rect key="frame" x="20" y="196" width="60" height="40"/>
+                                <rect key="frame" x="15" y="225" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -423,7 +409,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ru8-WF-c2S">
-                                <rect key="frame" x="93" y="196" width="60" height="40"/>
+                                <rect key="frame" x="88" y="225" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -431,7 +417,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bQ7-Od-PHQ">
-                                <rect key="frame" x="240" y="91" width="60" height="40"/>
+                                <rect key="frame" x="235" y="162" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -439,7 +425,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dZK-8Q-x9e">
-                                <rect key="frame" x="24" y="303" width="60" height="40"/>
+                                <rect key="frame" x="15" y="291" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -447,7 +433,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Mm-IP-dhS">
-                                <rect key="frame" x="240" y="196" width="60" height="40"/>
+                                <rect key="frame" x="235" y="225" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -455,7 +441,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nnh-us-gv3">
-                                <rect key="frame" x="167" y="196" width="60" height="40"/>
+                                <rect key="frame" x="162" y="225" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -463,14 +449,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfr-2N-aSO">
-                                <rect key="frame" x="20" y="33" width="106" height="21"/>
+                                <rect key="frame" x="15" y="96" width="106" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcb-3S-BDt">
-                                <rect key="frame" x="239" y="32" width="61" height="23"/>
+                                <rect key="frame" x="234" y="95" width="61" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Restart" backgroundImage="cardfront"/>
                                 <connections>
@@ -483,7 +469,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="status">
                                         <attributes>
-                                            <color key="NSColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="NSColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="13" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
                                         </attributes>
@@ -492,7 +478,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bCf-Ww-9Mh">
-                                <rect key="frame" x="167" y="303" width="60" height="40"/>
+                                <rect key="frame" x="162" y="291" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -500,7 +486,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ9-zK-EQe">
-                                <rect key="frame" x="93" y="303" width="60" height="40"/>
+                                <rect key="frame" x="88" y="291" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -508,7 +494,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="42v-gh-aOO">
-                                <rect key="frame" x="240" y="303" width="60" height="40"/>
+                                <rect key="frame" x="235" y="291" width="60" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" backgroundImage="cardfront"/>
                                 <connections>
@@ -516,9 +502,15 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Set" id="w5o-BD-MZU"/>
+                    <navigationItem key="navigationItem" title="Set Game" id="9OP-MW-TaB">
+                        <barButtonItem key="rightBarButtonItem" title="Past" id="rib-S1-4Qq">
+                            <connections>
+                                <segue destination="OWB-Dr-gqr" kind="push" identifier="Open History" id="az4-T4-bs8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="resultDescription" destination="Jjo-aE-p9L" id="QNa-H9-Ltm"/>
                         <outlet property="scoreLabel" destination="hfr-2N-aSO" id="lgh-4F-UdT"/>
@@ -538,7 +530,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ck2-gI-CoN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1148" y="843"/>
+            <point key="canvasLocation" x="1634" y="891"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="51w-VD-onZ">
@@ -552,39 +544,97 @@
                     </tabBar>
                     <connections>
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="eft-IJ-Ibg"/>
-                        <segue destination="JUF-hG-gbf" kind="relationship" relationship="viewControllers" id="dV3-rT-A2t"/>
+                        <segue destination="e1I-gG-rTq" kind="relationship" relationship="viewControllers" id="dV3-rT-A2t"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d4E-fh-f9u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="508" y="633"/>
         </scene>
+        <!--Game History View Controller-->
+        <scene sceneID="Uit-RP-fru">
+            <objects>
+                <viewController id="OWB-Dr-gqr" customClass="GameHistoryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="He0-tj-fLP"/>
+                        <viewControllerLayoutGuide type="bottom" id="1WA-GD-641"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0m8-IL-pCd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gvw-UF-QH3">
+                                <rect key="frame" x="0.0" y="65" width="320" height="366"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <attributes>
+                                            <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="9nK-rg-Geb"/>
+                    <connections>
+                        <outlet property="body" destination="Gvw-UF-QH3" id="2mY-K1-M6e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Um-sa-Iar" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2295" y="885"/>
+        </scene>
+        <!--Navigation Controller - Set-->
+        <scene sceneID="OwL-Qp-WhI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e1I-gG-rTq" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Set" id="w5o-BD-MZU"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hvG-gz-sU4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="JUF-hG-gbf" kind="relationship" relationship="rootViewController" id="kbC-Gd-mlr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BLo-oe-A5a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1108" y="891"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
-        <image name="cardback" width="64" height="96"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
+        <image name="cardback" width="577" height="796"/>
         <image name="cardfront" width="64" height="96"/>
         <image name="cardfront" width="64" height="96"/>
         <image name="cardfront" width="64" height="96"/>

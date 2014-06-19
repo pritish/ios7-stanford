@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD08F8861952D54F00194B3B /* GameHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD08F8851952D54F00194B3B /* GameHistoryViewController.m */; };
 		CD34DFC9191EA5F4007D87F9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD34DFC8191EA5F4007D87F9 /* Foundation.framework */; };
 		CD34DFCB191EA5F4007D87F9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD34DFCA191EA5F4007D87F9 /* CoreGraphics.framework */; };
 		CD34DFCD191EA5F4007D87F9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD34DFCC191EA5F4007D87F9 /* UIKit.framework */; };
@@ -44,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CD08F8841952D54F00194B3B /* GameHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHistoryViewController.h; sourceTree = "<group>"; };
+		CD08F8851952D54F00194B3B /* GameHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHistoryViewController.m; sourceTree = "<group>"; };
 		CD34DFC5191EA5F4007D87F9 /* Matchismo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matchismo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD34DFC8191EA5F4007D87F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CD34DFCA191EA5F4007D87F9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -142,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				CD34DFDA191EA5F4007D87F9 /* Main.storyboard */,
+				CD08F8841952D54F00194B3B /* GameHistoryViewController.h */,
+				CD08F8851952D54F00194B3B /* GameHistoryViewController.m */,
 				CD38A4D1194FED6400CD8C08 /* PlayingCardGameViewController.h */,
 				CD38A4D2194FED6400CD8C08 /* PlayingCardGameViewController.m */,
 				CD38A4CE194F018500CD8C08 /* TheSetGameViewController.h */,
@@ -318,6 +323,7 @@
 				CD38A4D0194F018500CD8C08 /* TheSetGameViewController.m in Sources */,
 				CD57C78A19205CE30065EC64 /* PlayingCardDeck.m in Sources */,
 				CD57C787192059700065EC64 /* Deck.m in Sources */,
+				CD08F8861952D54F00194B3B /* GameHistoryViewController.m in Sources */,
 				CD57C780192026CC0065EC64 /* Card.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -47,7 +47,7 @@
         //@[@"unchosen", @"chosen", @"match", @"mismatch"]
         NSString *lastEvent = (NSString *)lastEventObj;
         NSArray *lastEventParsed = [lastEvent componentsSeparatedByString:@","];
-        unsigned long resultType = [[CardMatchingGame GameEventTypes] indexOfObject:[(NSString *)[lastEventParsed objectAtIndex:0] lowercaseString] ];
+        unsigned long resultType = [[CardMatchingGame GameEventTypes] indexOfObject:[(NSString *)[lastEventParsed objectAtIndex:0] lowercaseString]];
         int resultPoints = [[lastEventParsed objectAtIndex:1] intValue];
         NSMutableString *description = [[NSMutableString alloc] init];
         switch (resultType) {
@@ -60,7 +60,7 @@
                 }
                 [description appendString:@" unchosen"];
                 self.resultDescription.text = description;
-                [self.cardsChosen removeAllObjects];
+                self.cardsChosen = nil;
                 break;
                 
             case 1:
@@ -84,7 +84,7 @@
                 }
                 [description appendString:[NSString stringWithFormat:@" for %d points!", resultPoints]];
                 self.resultDescription.text = description;
-                [self.cardsChosen removeAllObjects];
+                self.cardsChosen = nil;
                 break;
                 
             case 3:
@@ -106,7 +106,7 @@
                 break;
         }
     } else {
-        self.resultDescription.text = self.cardsChosen[0];
+        self.resultDescription.text = @"";
         
     }
 }

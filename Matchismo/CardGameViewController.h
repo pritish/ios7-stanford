@@ -12,7 +12,7 @@
 #import "CardMatchingGame.h"
 @interface CardGameViewController : UIViewController
 @property (strong, nonatomic) CardMatchingGame *game;
-@property (strong, nonatomic) NSMutableArray *cardsChosen;
+@property (strong, nonatomic) NSArray *cardsChosen;
 
 // protected methods
 - (void)updateUI;

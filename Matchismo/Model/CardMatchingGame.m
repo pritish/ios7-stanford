@@ -57,6 +57,10 @@ static const int COST_TO_CHOOSE = 1;
     return (index<[self.cards count]) ? self.cards[index] : nil;
 }
 
+- (void)saveToHistoryCardUnchosen:(Card *)cardUnchosen{
+    [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"unchosen", 0 ]];
+}
+
 - (void)chooseCardAtIndex:(NSUInteger)index {
     Card *card = [self cardAtIndex:index];
     
@@ -65,7 +69,8 @@ static const int COST_TO_CHOOSE = 1;
             // ischosen + !ismatch -> unchoose card
             card.chosen = NO;
             // record in gameHistory the action and cost; unchosen costs 0
-            [self.gameHistory addObject:[NSString stringWithFormat:@"%@,%d",@"unchosen", 0 ]];
+            [self saveToHistoryCardUnchosen:card];
+
         } else {
             
             // match: choose card +

@@ -19,8 +19,8 @@
 
 @synthesize cardsChosen = _cardsChosen;
 
-- (NSMutableArray *)cardsChosen {
-    return _cardsChosen ? _cardsChosen : [[NSMutableArray alloc] init];
+- (NSArray *)cardsChosen {
+    return _cardsChosen ? _cardsChosen : [[NSArray alloc] init];
 }
 
 - (Deck *)createDeck // Abstract
@@ -68,7 +68,7 @@
     Card *card = [self.game cardAtIndex:chosenButtonAtIndex];
     if (card) {
         if ([self titleForCard:card] != nil) {
-            [self.cardsChosen addObject:[self titleForCard:card]];
+            self.cardsChosen = [self.cardsChosen arrayByAddingObject:[self titleForCard:card]];
         }
     }
     
@@ -83,7 +83,7 @@
     // reset the game, update the UI
     self.game = [self createNCardMatchingGame];
     self.gameSizeSelector.enabled=true;
-    [self.cardsChosen removeAllObjects];
+    self.cardsChosen = nil;
     [self updateUI];
 }
 
@@ -104,12 +104,12 @@
 }
 
 - (void)updateCardsChosenWithActual {
-    [self.cardsChosen removeAllObjects];
+    self.cardsChosen = nil;
     for (UIButton *cardButton in self.cardButtons) {
         unsigned long cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:cardButtonIndex];
         if (!card.isMatched && card.isChosen) {
-            [self.cardsChosen addObject:[self titleForCard:card]];
+            self.cardsChosen = [self.cardsChosen arrayByAddingObject:[self titleForCard:card]];
         }
     }
 }
