@@ -13,10 +13,12 @@
 @interface CardGameViewController : UIViewController
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) NSArray *cardsChosen;
+@property (nonatomic, readonly) NSMutableArray *gameHistoryView;
 
 // protected methods
 - (void)updateUI;
 - (void)updateCardsChosenWithActual;
+
 
 // Abstract declarations - for subclasses to implement
 - (Deck *)createDeck; // Abstract

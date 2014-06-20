@@ -8,6 +8,7 @@
 
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardDeck.h"
+#import "GameHistoryViewController.h"
 
 @interface PlayingCardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *resultDescription;
@@ -59,7 +60,6 @@
                     }
                 }
                 [description appendString:@" unchosen"];
-                self.resultDescription.text = description;
                 self.cardsChosen = nil;
                 break;
                 
@@ -71,7 +71,6 @@
                     }
                 }
                 [description appendString:@" chosen"];
-                self.resultDescription.text = description;
                 break;
                 
             case 2:
@@ -83,7 +82,6 @@
                     }
                 }
                 [description appendString:[NSString stringWithFormat:@" for %d points!", resultPoints]];
-                self.resultDescription.text = description;
                 self.cardsChosen = nil;
                 break;
                 
@@ -95,19 +93,27 @@
                     }
                 }
                 [description appendString:[NSString stringWithFormat:@" don't match, %d point penalty.", resultPoints]];
-                self.resultDescription.text = description;
-                [self updateCardsChosenWithActual];
-                
+                [self updateCardsChosenWithActual];                
                 break;
                 
             default:
-                
-                self.resultDescription.text = self.cardsChosen[0];
+                description = self.cardsChosen[0];
                 break;
         }
+        self.resultDescription.text = description;
+        [self.gameHistoryView addObject:description];
     } else {
         self.resultDescription.text = @"";
         
+    }
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Open History"]) {
+        if ([segue.destinationViewController isKindOfClass:[GameHistoryViewController class]]) {
+            GameHistoryViewController *gameHistoryVC = (GameHistoryViewController *)segue.destinationViewController;
+            gameHistoryVC.gameHistory = self.gameHistoryView;
+        }
     }
 }
 

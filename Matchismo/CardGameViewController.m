@@ -18,9 +18,21 @@
 @implementation CardGameViewController
 
 @synthesize cardsChosen = _cardsChosen;
+@synthesize gameHistoryView = _gameHistoryView;
 
 - (NSArray *)cardsChosen {
     return _cardsChosen ? _cardsChosen : [[NSArray alloc] init];
+}
+
+- (CardMatchingGame *)game {
+    if (!_game) _game = [self createNCardMatchingGame];
+    return _game;
+}
+
+
+- (NSMutableArray *)gameHistoryView {
+    if (!_gameHistoryView) _gameHistoryView = [[NSMutableArray alloc] init];
+    return _gameHistoryView;
 }
 
 - (Deck *)createDeck // Abstract
@@ -84,15 +96,12 @@
     self.game = [self createNCardMatchingGame];
     self.gameSizeSelector.enabled=true;
     self.cardsChosen = nil;
+    [self.gameHistoryView addObject:[[NSAttributedString alloc] initWithString:@"GAME RESTARTED" attributes:@{NSForegroundColorAttributeName: [UIColor redColor]}]];
     [self updateUI];
 }
 
 
 
-- (CardMatchingGame *)game {
-    if (!_game) _game = [self createNCardMatchingGame];
-    return _game;
-}
 
 
 - (void)refreshCardButtonStatus {
@@ -125,7 +134,6 @@
     
     [self updateStatusInfo];
 }
-
 
 
 @end

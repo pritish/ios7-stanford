@@ -115,6 +115,7 @@
                 [description appendAttributedString:[[NSAttributedString alloc] initWithString:@" unchosen"]];
                 
                 self.resultDescription.attributedText = description;
+                [self.gameHistoryView addObject:description];
                 self.cardsChosen = nil;
                 break;
                 
@@ -128,6 +129,7 @@
                 [description appendAttributedString:[[NSAttributedString alloc] initWithString:@" chosen"]];
                 
                 self.resultDescription.attributedText = description;
+                [self.gameHistoryView addObject:description];
                 break;
                 
             case 2:
@@ -141,6 +143,7 @@
                 [description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"confirmed for %d points.", resultPoints]]];
                 
                 self.resultDescription.attributedText = description;
+                [self.gameHistoryView addObject:description];
                 self.cardsChosen = nil;
                 break;
                 
@@ -154,7 +157,7 @@
                 [description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" don't match! %d point penalty!", resultPoints]]];
                 
                 self.resultDescription.attributedText = description;
-
+                [self.gameHistoryView addObject:description];
                 [self updateCardsChosenWithActual];
                 
                 break;
@@ -162,6 +165,7 @@
             default:
                 if (self.cardsChosen != nil) {
                     self.resultDescription.attributedText = self.cardsChosen[0];
+                    [self.gameHistoryView addObject:self.cardsChosen[0]];
                 }
                 break;
         }
@@ -175,82 +179,9 @@
     if ([segue.identifier isEqualToString:@"Open History"]) {
         if ([segue.destinationViewController isKindOfClass:[GameHistoryViewController class]]) {
             GameHistoryViewController *gameHistoryVC = (GameHistoryViewController *)segue.destinationViewController;
-            gameHistoryVC.gameHistory = self.game.gameHistory;
+            gameHistoryVC.gameHistory = self.gameHistoryView;
         }
     }
-}
-
-
-// gameHistoryAsArray
-// returns an array of attributed strings, for use in segue to GameHistoryViewController
-//
-- (NSArray *)gameHistoryAsArray {
-    NSMutableArray *journal = [[NSMutableArray alloc] initWithCapacity:[self.game.gameHistory count]];
-    for (NSString *aSetGameEvent in self.game.gameHistory) {
-        [journal addObject:aSetGameEvent];
-    }
-    return journal;
-}
-
-- (NSAttributedString *)aSetGameEventToAttributedString: (NSString *)aSetGameEvent {
-
-    
-        NSArray *lastEventParsed = [aSetGameEvent componentsSeparatedByString:@","];
-    
-        //compares GameEventTypes [@"unchosen", @"chosen", @"match", @"mismatch"] and returns resultType 0-4, to enable the swich statement
-        unsigned long resultType = [[CardMatchingGame GameEventTypes] indexOfObject:[(NSString *)[lastEventParsed objectAtIndex:0] lowercaseString] ];
-        int resultPoints = [[lastEventParsed objectAtIndex:1] intValue];
-        NSMutableAttributedString *description = [[NSMutableAttributedString alloc] init];
-        
-        switch (resultType) {
-            case 0:
-                // unchosen case
-                for (NSAttributedString *aChosenCard in self.cardsChosen) {
-                    if ([aChosenCard isKindOfClass:[NSAttributedString class]]) {
-                        [description appendAttributedString:aChosenCard];
-                    }
-                }
-                [description appendAttributedString:[[NSAttributedString alloc] initWithString:@" unchosen\n"]];
-                break;
-                
-            case 1:
-                // chosen case
-                for (NSAttributedString *aChosenCard in self.cardsChosen) {
-                    if ([aChosenCard isKindOfClass:[NSAttributedString class]]) {
-                        [description appendAttributedString:aChosenCard];
-                    }
-                }
-                [description appendAttributedString:[[NSAttributedString alloc] initWithString:@" chosen\n"]];
-                break;
-                
-            case 2:
-                // match case
-                [description appendAttributedString:[[NSAttributedString alloc] initWithString:@"Set: "]];
-                for (NSAttributedString *aChosenCard in self.cardsChosen) {
-                    if ([aChosenCard isKindOfClass:[NSAttributedString class]]) {
-                        [description appendAttributedString:aChosenCard];
-                    }
-                }
-                [description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"confirmed for %d points.\n", resultPoints]]];
-                break;
-                
-            case 3:
-                // nomatch case
-                for (NSAttributedString *aChosenCard in self.cardsChosen) {
-                    if ([aChosenCard isKindOfClass:[NSAttributedString class]]) {
-                        [description appendAttributedString:aChosenCard];
-                    }
-                }
-                [description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" don't match! %d point penalty!\n", resultPoints]]];
-                break;
-                
-            default:
-                if (self.cardsChosen != nil) {
-                    [description appendAttributedString:self.cardsChosen[0]];
-                }
-                break;
-        }
-    return description;
 }
 
 @end
