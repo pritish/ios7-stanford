@@ -32,6 +32,7 @@
 		CD57C78A19205CE30065EC64 /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = CD57C78919205CE30065EC64 /* PlayingCardDeck.m */; };
 		CD57C78E1921ECC80065EC64 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = CD57C78D1921ECC80065EC64 /* README.txt */; };
 		CDA259A919245BB20006FA2E /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA259A819245BB20006FA2E /* CardMatchingGame.m */; };
+		CDD16F9C1960E9FC0041464E /* PlayingCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD16F9B1960E9FC0041464E /* PlayingCardView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,8 @@
 		CD57C78D1921ECC80065EC64 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		CDA259A719245BB20006FA2E /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardMatchingGame.h; path = Model/CardMatchingGame.h; sourceTree = "<group>"; };
 		CDA259A819245BB20006FA2E /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardMatchingGame.m; path = Model/CardMatchingGame.m; sourceTree = "<group>"; };
+		CDD16F9A1960E9FC0041464E /* PlayingCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardView.h; sourceTree = "<group>"; };
+		CDD16F9B1960E9FC0041464E /* PlayingCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				CD34DFDA191EA5F4007D87F9 /* Main.storyboard */,
+				CDD16F9A1960E9FC0041464E /* PlayingCardView.h */,
+				CDD16F9B1960E9FC0041464E /* PlayingCardView.m */,
 				CD08F8841952D54F00194B3B /* GameHistoryViewController.h */,
 				CD08F8851952D54F00194B3B /* GameHistoryViewController.m */,
 				CD38A4D1194FED6400CD8C08 /* PlayingCardGameViewController.h */,
@@ -323,6 +328,7 @@
 				CD38A4D0194F018500CD8C08 /* TheSetGameViewController.m in Sources */,
 				CD57C78A19205CE30065EC64 /* PlayingCardDeck.m in Sources */,
 				CD57C787192059700065EC64 /* Deck.m in Sources */,
+				CDD16F9C1960E9FC0041464E /* PlayingCardView.m in Sources */,
 				CD08F8861952D54F00194B3B /* GameHistoryViewController.m in Sources */,
 				CD57C780192026CC0065EC64 /* Card.m in Sources */,
 			);

@@ -1,5 +1,5 @@
-Pritish Jacob, Magenic Masters iOS, Assignment #2
+Pritish Jacob, Magenic Masters iOS, cs193p.stanford.edu Assignment #4
 
-June 2 2014, v1.0
+June 29 2014, v1.0
 
-A 30 cards version of machismo from assignment 1. Added some status line + logic for a three-card-game.
+Two games - a 24 cards version of match from assignment #2, and a 12 card game of Set. Supports points, status, and game history, and restarting.

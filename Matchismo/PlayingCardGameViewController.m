@@ -8,10 +8,11 @@
 
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardDeck.h"
-#import "GameHistoryViewController.h"
+#import "playingCardView.h"
 
 @interface PlayingCardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *resultDescription;
+@property (weak, nonatomic) IBOutlet PlayingCardView *playingCardView;
 
 @end
 
@@ -108,13 +109,11 @@
     }
 }
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"Open History"]) {
-        if ([segue.destinationViewController isKindOfClass:[GameHistoryViewController class]]) {
-            GameHistoryViewController *gameHistoryVC = (GameHistoryViewController *)segue.destinationViewController;
-            gameHistoryVC.gameHistory = self.gameHistoryView;
-        }
-    }
+- (void) viewDidLoad
+{
+    [super viewDidLoad];
+    self.playingCardView.suit = @"♥";
+    self.playingCardView.rank = 13;
 }
 
 @end

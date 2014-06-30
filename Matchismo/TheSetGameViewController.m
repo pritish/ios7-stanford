@@ -9,7 +9,6 @@
 #import "TheSetGameViewController.h"
 #import "TheSetCardDeck.h"
 #import "TheSetCard.h"
-#import "GameHistoryViewController.h"
 
 @interface TheSetGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *resultDescription;
@@ -172,15 +171,6 @@
     } else {
         self.resultDescription.text = @"";
         
-    }
-}
-
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"Open History"]) {
-        if ([segue.destinationViewController isKindOfClass:[GameHistoryViewController class]]) {
-            GameHistoryViewController *gameHistoryVC = (GameHistoryViewController *)segue.destinationViewController;
-            gameHistoryVC.gameHistory = self.gameHistoryView;
-        }
     }
 }
 
