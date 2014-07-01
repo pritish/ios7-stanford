@@ -256,19 +256,6 @@
     </scenes>
     <resources>
         <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
-        <image name="cardfront" width="64" height="96"/>
         <image name="tabbar-match" width="48" height="48"/>
         <image name="tabbar-set" width="48" height="48"/>
     </resources>

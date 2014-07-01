@@ -7,11 +7,29 @@
 //
 
 #import "PlayingCardView.h"
-
+@interface PlayingCardView()
+@property (nonatomic) CGFloat faceCardScaleFactor;
+@end
 
 @implementation PlayingCardView
 
 #pragma mark - Properties
+
+@synthesize faceCardScaleFactor = _faceCardScaleFactor;
+
+#define DEFAULT_FACE_CARD_SCALE_FACTOR 0.90
+
+- (CGFloat)faceCardScaleFactor
+{
+    if (!_faceCardScaleFactor) _faceCardScaleFactor = DEFAULT_FACE_CARD_SCALE_FACTOR;
+    return _faceCardScaleFactor;
+}
+
+- (void)setFaceCardScaleFactor:(CGFloat)faceCardScaleFactor
+{
+    _faceCardScaleFactor = faceCardScaleFactor;
+    [self setNeedsDisplay];
+}
 
 - (void) setSuit:(NSString *)suit
 {
@@ -55,6 +73,23 @@
     [[UIColor blackColor] setStroke];
     [roundedRect stroke];
     
+    UIImage *faceImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@", [self rankAsString], self.suit]];
+    if (faceImage) {
+        CGRect imageRect = CGRectInset( self.bounds,
+                                        self.bounds.size.width * (1.0 - self.faceCardScaleFactor),
+                                       self.bounds.size.height * (1.0 - self.faceCardScaleFactor));
+        [faceImage drawInRect:imageRect];
+    } else {
+        [self drawPips];
+    }
+    
+    [self drawCorners];
+}
+
+
+- (void)drawPips
+{
+    
 }
 
 - (NSString *)rankAsString
@@ -83,6 +118,7 @@
     [cornerText drawInRect:textBounds];
                                       
 }
+
 
 #pragma mark - Initialization
 
